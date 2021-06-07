@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign UP</title>
+    <style>
+      body {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #nav {
+        position: fixed;
+        background: gray;
+        top: 0px;
+        color: white;
+        width: 100%;
+      }
+      #nav > ul {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #nav > ul > li {
+        display: block;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      #divform {
+        margin-top: 100px;
+      }
+      form {
+        margin: auto;
+      }
+      input {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav">
+      <ul>
+        <li id="login" onclick="gotologin()">Log in</li>
+        <li id="signup">Sign Up</li>
+        <li id="menu" onclick="gotomenu()">Menu</li>
+      </ul>
+    </div>
+
+    <div id="divform">
+      <form id="form">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="number" id="number" placeholder="Number" required />
+        <input type="text" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button id="submit" onclick="details(event)">Submit</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    function details(e) {
+      e.preventDefault();
+      var form = document.getElementById("form");
+      let name = form.name.value;
+      let number = form.number.value;
+      let email = form.email.value;
+      let password = form.password.value;
+      if (name == "" || number == "" || email == "" || password == "") {
+        alert("Please fill the form");
+        return;
+      }
+
+      var arr = JSON.parse(localStorage.getItem("user"));
+      if (arr == null) {
+        arr = [];
+      }
+      var a = {
+        name,
+        number,
+        email,
+        password,
+      };
+      arr.push(a);
+
+      localStorage.setItem("user", JSON.stringify(arr));
+      window.location.href = "\login.html";
+    }
+
+    function gotologin() {
+      window.location.href = "login.html";
+    }
+
+    function gotomenu() {
+      alert("Please Sign Up first");
+    }
+  </script>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <style>
+      body {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #nav {
+        position: fixed;
+        top: 0px;
+        background: gray;
+        color: white;
+        width: 100%;
+      }
+      #nav > ul {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #nav > ul > li {
+        display: block;
+        margin: 10px;
+        cursor: pointer;
+      }
+      #parent {
+        display: grid;
+        grid-template-columns: 300px 300px 300px;
+        grid-gap: 30px;
+        margin-top: 115px;
+      }
+      #parent > div {
+        border: 1px solid black;
+        width: 300px;
+        height: 400px;
+      }
+      img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav">
+      <ul>
+        <li id="login" onclick="gotologin()">Log in</li>
+        <li id="signup" onclick="gotosignup()">Sign Up</li>
+        <li id="menu">Menu</li>
+        <li onclick=" gotocart() " id="cart">Go to Cart</li>
+      </ul>
+    </div>
+    <div id="parent"></div>
+  </body>
+  <script>
+    var arr = [
+      {
+        id: "1",
+        name: "Chole Bhature",
+        descrip: "Punjabi",
+        price: "80",
+        time: "10 min",
+        img: "https://image.shutterstock.com/image-photo/chole-bhature-chick-pea-curry-260nw-1072270610.jpg",
+      },
+      {
+        id: "2",
+        name: "Kadi Chawal",
+        descrip: "North style",
+        price: "50",
+        time: "15 min",
+        img: "https://image.shutterstock.com/image-photo/kadhi-chawal-yogurt-curry-rice-260nw-1358896568.jpg",
+      },
+      {
+        id: "3",
+        name: "Chat",
+        descrip: "Bikaneri style",
+        price: "90",
+        time: "5 min",
+        img: "https://image.shutterstock.com/image-photo/wedding-food-samosa-chaat-260nw-1220947348.jpg",
+      },
+      {
+        id: "4",
+        name: "Pulao",
+        descrip: "Hydrabadi",
+        price: "120",
+        time: "15 min",
+        img: "https://image.shutterstock.com/image-photo/indian-food-tawa-pulao-rice-260nw-1261881601.jpg",
+      },
+      {
+        id: "5",
+        name: "Matar Paneer",
+        descrip: "Hydrabadi",
+        price: "180",
+        time: "20 min",
+        img: "https://image.shutterstock.com/image-photo/matar-paneer-curry-recipe-made-260nw-1250565685.jpg",
+      },
+      {
+        id: "6",
+        name: "Palak Paneer",
+        descrip: "North style",
+        price: "150",
+        time: "18 min",
+        img: "https://image.shutterstock.com/image-photo/palak-paneer-spinach-cottage-cheese-260nw-1385912096.jpg",
+      },
+    ];
+    var parent = document.getElementById("parent");
+
+    arr.forEach(function (a) {
+      var div = document.createElement("div");
+
+      var name = document.createElement("p");
+      name.innerText = a.name;
+
+      var dis = document.createElement("p");
+      dis.innerText = a.descrip;
+
+      var price = document.createElement("p");
+      price.innerText = a.price;
+
+      var time = document.createElement("p");
+      time.innerText = a.time;
+
+      var image = document.createElement("img");
+      image.src = a.img;
+
+      var btn = document.createElement("button");
+      btn.innerText = "Add To Cart";
+      btn.onclick = function () {
+        add(a);
+      };
+
+      div.append(image, name, price, dis, time, btn);
+      parent.append(div);
+    });
+
+    function add(a) {
+      var arr = JSON.parse(localStorage.getItem("cart"));
+      if (arr == null) {
+        arr = [];
+      }
+      for (var i = 0; i < arr.length; i++) {
+        if (a.id == arr[i].id) {
+          alert("Item already Exist in Cart");
+          return;
+        }
+      }
+
+      arr.push(a);
+      localStorage.setItem("cart", JSON.stringify(arr));
+    }
+    function gotocart() {
+      window.location.href = "\cart.html";
+    }
+
+    function gotologin() {
+      window.location.href = "login.html";
+    }
+
+    function gotosignup() {
+      window.location.href = "signup.html";
+    }
+  </script>
+</html>

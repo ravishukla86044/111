@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <style>
+      body {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #nav {
+        position: fixed;
+        top: 0px;
+        background: gray;
+        color: white;
+        width: 100%;
+      }
+      #nav > ul {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #nav > ul > li {
+        display: block;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      #divform {
+        margin-top: 100px;
+      }
+      form {
+        margin: auto;
+      }
+      input {
+        display: block;
+      }
+      /* #ll {
+        margin-left: 300px;
+        padding: 0px;
+        display: block;
+        width: 110%;
+      } */
+    </style>
+  </head>
+  <body>
+    <div id="nav">
+      <ul>
+        <li id="login" onclick="gotologin()">Log in</li>
+        <li id="signup" onclick="gotosignup()">Sign Up</li>
+        <li id="menu" onclick="gotomenu()">Menu</li>
+      </ul>
+    </div>
+
+    <div id="divform">
+      <form id="form">
+        <input type="text" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button id="submit" onclick="details(event)">Submit</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    function details(e) {
+      e.preventDefault();
+
+      var arr = JSON.parse(localStorage.getItem("user"));
+      if (arr == null) {
+        alert("Please Sign Up First");
+        return;
+      }
+
+      var form = document.getElementById("form");
+      var email = form.email.value;
+      var password = form.password.value;
+      var bo = false;
+
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].email == email && arr[i].password == password) {
+          window.location.href = "/menu.html";
+          bo = true;
+          break;
+        }
+      }
+      if (bo == false) {
+        alert("Invalid user");
+      } else {
+        window.location.href = "\menu.html";
+      }
+    }
+
+    function gotologin() {
+      window.location.href = "login.html";
+    }
+
+    function gotosignup() {
+      window.location.href = "signup.html";
+    }
+
+    function gotomenu() {
+      alert("Please Log in");
+    }
+  </script>
+</html>

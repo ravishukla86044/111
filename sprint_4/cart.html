@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <style>
+      body {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #nav {
+        position: fixed;
+        top: 0px;
+        background: gray;
+        color: white;
+        width: 100%;
+      }
+      #nav > ul {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #nav > ul > li {
+        display: block;
+        margin: 10px;
+        cursor: pointer;
+      }
+      #parent {
+        display: grid;
+        grid-template-columns: 300px 300px 300px;
+        grid-gap: 30px;
+        margin-top: 115px;
+      }
+      #parent > div {
+        border: 1px solid black;
+        width: 300px;
+        height: 400px;
+      }
+      img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav">
+      <ul>
+        <li id="login" onclick="gotologin()">Log in</li>
+        <li id="signup" onclick="gotosignup()">Sign Up</li>
+        <li id="menu" onclick="gotomenu()">Menu</li>
+        <li onclick="placeOrder()">Submit Order</li>
+      </ul>
+    </div>
+    <div id="parent"></div>
+    <div id="total"></div>
+  </body>
+  <script>
+    var total = 0;
+    var arr = JSON.parse(localStorage.getItem("cart"));
+    var parent = document.getElementById("parent");
+    if (arr == null) {
+      alert("Cart is empty");
+    }
+    arr.forEach(function (a) {
+      total = total + Number(a.price);
+      var div = document.createElement("div");
+
+      var name = document.createElement("p");
+      name.innerText = a.name;
+
+      var dis = document.createElement("p");
+      dis.innerText = a.descrip;
+
+      var price = document.createElement("p");
+      price.innerText = a.price;
+
+      var time = document.createElement("p");
+      time.innerText = a.time;
+
+      var image = document.createElement("img");
+      image.src = a.img;
+
+      div.append(image, name, price, dis, time);
+      parent.append(div);
+    });
+    document.getElementById("total").innerText = `Total = ${total}`;
+
+    function placeOrder() {
+      alert("Your order is accepted");
+      setTimeout(function () {
+        alert("Your order is being cooked");
+      }, 3000);
+
+      setTimeout(function () {
+        alert("Your order is ready");
+      }, 8000);
+
+      setTimeout(function () {
+        alert("Order out for delivery");
+      }, 10000);
+
+      setTimeout(function () {
+        alert("Order delivered");
+      }, 12000);
+    }
+
+    function gotologin() {
+      window.location.href = "login.html";
+    }
+
+    function gotosignup() {
+      window.location.href = "signup.html";
+    }
+
+    function gotomenu() {
+      window.location.href = "menu.html";
+    }
+  </script>
+</html>
